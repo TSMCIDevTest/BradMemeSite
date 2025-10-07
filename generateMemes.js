@@ -8,7 +8,7 @@ for (const day of days) {
   const dir = path.join("./public", day);
   if (fs.existsSync(dir)) {
     const files = fs.readdirSync(dir).filter(f =>
-      /\.(jpg|jpeg|png|gif)$/i.test(f)
+      /\.(jpg|jpeg|png|gif|jfif)$/i.test(f)
     );
     memeData[day] = files.map(file => `${day}/${file}`);
   } else {
