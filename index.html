@@ -33,30 +33,29 @@
         <img id="memeImage" src="" alt="Daily meme">
 
         <script>
-            async function loadMeme() {
+            async function loadMemes() {
+                const res = await fetch("memes.json");
+                const memeData = await res.json();
+
                 const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
                 const today = new Date();
-                const dayName = days[today.getDay()]
+                const dayName = days[today.getDay()];
 
-                document.getElementById("dayTitle").textContent = `It's ${dayName.charAt(0).toUpperCase() + dayName.slice(1)}!`
+                const memes = memeData[dayName];
+                const title = document.getElementById("dayTitle");
+                const img = document.getElementById("memeImage");
 
-                try {
-                    const response = await fetch(`${dayName}/`)
-                    const text = await response.text();
+                title.textContent = `It's ${dayName.charAt(0).toUpperCase() + dayName.slice(1)}!`;
 
-                    const files = Array.from(text.matchAll(/href="([^"]+\.(jpg|jpeg|png|gif|jfif))"/gi)).map(m => m[1])
-
-                    if (files.length > 0) {
-                        const randomFile = files[Math.floor(Math.random() * files.length)];
-                        document.getElementById("memeImage").src = randomFile;
-                    } else {
-                        document.getElementById("memeImage").alt = "No memes for today!"
-                    }
-                } catch (error) {
-                    console.error("Error loading memes:", error)
+                if (memes.length > 0) {
+                    const randomMeme = memes[Math.floor(Math.random() * memes.length)];
+                    img.src = randomMeme;
+                } else {
+                    img.alt = "No memes found for today!";
                 }
             }
-            loadMeme();
+
+            loadMemes();
         </script>
     </body>
 </html>

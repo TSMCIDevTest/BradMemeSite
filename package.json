@@ -1,0 +1,20 @@
+{
+  "name": "bradmemesite",
+  "version": "1.0.0",
+  "description": "This is the source code for the project",
+  "main": "generateMemes.js",
+  "scripts": {
+    "build": "node generateMemes.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TSMCIDevTest/BradMemeSite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TSMCIDevTest/BradMemeSite/issues"
+  },
+  "homepage": "https://github.com/TSMCIDevTest/BradMemeSite#readme"
+}
