@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BradMemeSite</title>
+        <style>
+            body {
+                background-color: #222;
+                color: white;
+                font-family: Arial, san-serif;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            h1 {
+                margin-bottom: 20px;
+            }
+
+            img {
+                max-width: 80%;
+                border-radius: 10px;
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="dayTitle">BradMemeSite</h1>
+        <img id="memeImage" src="" alt="Daily meme">
+
+        <script>
+            async function loadMeme() {
+                const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+                const today = new Date();
+                const dayName = days[today.getDay()]
+
+                document.getElementById("dayTitle").textContent = `It's ${dayName.charAt(0).toUpperCase() + dayName.slice(1)}!`
+
+                try {
+                    const response = await fetch(`${dayName}/`)
+                    const text = await response.text();
+
+                    const files = Array.from(text.matchAll(/href="([^"]+\.(jpg|jpeg|png|gif|jfif))"/gi)).map(m => m[1])
+
+                    if (files.length > 0) {
+                        const randomFile = files[Math.floor(Math.random() * files.length)];
+                        document.getElementById("memeImage").src = randomFile;
+                    } else {
+                        document.getElementById("memeImage").alt = "No memes for today!"
+                    }
+                } catch (error) {
+                    console.error("Error loading memes:", error)
+                }
+            }
+            loadMeme();
+        </script>
+    </body>
+</html>
